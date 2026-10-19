@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "boss-analysis-assistant"
+version = "0.1.0"
+description = "基于 RAG 和 SQL Agent 的智能就业分析助手"
+requires-python = ">=3.9"
+dependencies = [
+  "fastapi>=0.115,<0.116",
+  "uvicorn>=0.30,<0.35",
+  "pydantic-settings>=2.6,<2.9",
+  "pymysql[rsa]>=1.1,<2",
+  "httpx>=0.27,<0.29",
+  "numpy>=1.24,<2",
+  "faiss-cpu>=1.8,<1.11",
+  "jieba>=0.42.1,<0.43",
+  "rank-bm25>=0.2.2,<0.3",
+  "sqlglot>=26,<27",
+]
+
+[project.optional-dependencies]
+semantic = ["sentence-transformers==3.4.1", "transformers>=4.41,<4.52", "torch>=2.6,<2.9", "scipy>=1.10,<1.14", "huggingface-hub>=0.20,<1"]
+dev = ["pytest>=8,<9"]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.setuptools.package-data]
+app = ["static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

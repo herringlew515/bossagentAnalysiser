@@ -1,0 +1,12 @@
+.venv/
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+data/index/
+data/models/
+data/browser-profile/
+artifacts/
+*.log
+.coverage

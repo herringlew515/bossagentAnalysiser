@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#153b36"><title>职向 · 让职业选择更有依据</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/static/styles.css"><script src="/static/app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="职向首页"><span class="brand-icon">↗</span><span>职向<small>CAREER INTELLIGENCE</small></span></a>
+    <div class="workspace-label">我的工作空间</div>
+    <button class="nav-item active" id="nav-chat"><span>✧</span> 智能问答 <span class="nav-arrow">↗</span></button>
+    <button class="nav-item" id="nav-data"><span>▥</span> 就业数据</button>
+    <a class="nav-item" href="/docs" target="_blank" rel="noopener"><span>⌘</span> API 文档</a>
+    <div class="sidebar-note"><span class="mini-label">让数据成为你的职业指南</span><p>从岗位要求到市场趋势，<br>找到下一步的方向。</p><div class="orbit">↗<i></i></div></div>
+    <div class="source-panel"><div><span class="dot" id="db-dot"></span><b id="db-status">连接数据库中</b></div><p>bossinfo / jobinfo</p><button id="rebuild" class="index-button">↻ 构建检索索引</button><small id="index-status">正在检查索引…</small></div>
+    <button id="access-key" class="key-button">⚙ 服务访问密钥</button>
+    <div class="sidebar-footer"><span class="avatar">职</span><div>就业分析工作台<small>LOCAL WORKSPACE</small></div><span class="version">v1.0</span></div>
+  </aside>
+  <div class="app-shell">
+    <header class="topbar"><div><span class="crumb">工作空间</span><span class="separator">/</span><span>智能问答</span></div><div class="status-pill" id="model-status">正在检查服务</div></header>
+    <main>
+      <section class="intro"><div><div class="eyebrow"><span></span> YOUR NEXT MOVE, INFORMED.</div><h1>每一个职业选择，<br>都可以<span>更有依据。</span></h1><p>连接真实招聘数据，探索岗位要求、技能方向与薪资趋势。</p></div><div class="hero-mark" aria-hidden="true"><div class="grid-orb"></div><span>↗</span><i>INSIGHT<br>INTO OPPORTUNITY</i></div></section>
+      <section class="metrics" id="metrics" aria-label="数据概览">
+        <div class="metric"><div>收录岗位 <span>↗</span></div><strong id="metric-jobs">—</strong><small>真实招聘样本</small></div>
+        <div class="metric"><div>覆盖城市 <span>◎</span></div><strong id="metric-cities">—</strong><small>发现更多城市机会</small></div>
+        <div class="metric"><div>招聘企业 <span>▥</span></div><strong id="metric-companies">—</strong><small>按企业名称去重</small></div>
+        <div class="metric"><div>样本平均月薪 <span>¥</span></div><strong id="metric-salary">—</strong><small>薪资区间中点 · 元/月</small></div>
+      </section>
+      <section class="workspace">
+        <div class="chat-panel">
+          <div class="panel-header"><div><span class="spark">✧</span><h2>职业探索助手</h2><span class="badge">AI ASSISTANT</span></div><button id="clear" class="text-button">清空对话 ↺</button></div>
+          <div class="messages" id="messages" aria-live="polite">
+            <div id="welcome" class="welcome"><div class="welcome-icon">✧</div><h3>你好，想了解什么职业机会？</h3><p>问一个具体的问题，让岗位数据为你提供线索。</p><div class="suggestions">
+              <button data-question="北京 Python 岗平均薪资"><span>↗</span><b>了解薪资行情</b><small>北京 Python 岗平均薪资</small><i>↗</i></button>
+              <button data-question="Python 开发岗位需要哪些技能？"><span>⌘</span><b>探索岗位技能</b><small>Python 开发岗位需要哪些技能？</small><i>↗</i></button>
+              <button data-question="招聘岗位的城市分布"><span>▥</span><b>发现城市机会</b><small>招聘岗位的城市分布</small><i>↗</i></button>
+              <button data-question="Java 岗位有哪些学历要求？"><span>◎</span><b>了解求职门槛</b><small>Java 岗位有哪些学历要求？</small><i>↗</i></button>
+            </div></div>
+          </div>
+          <form id="chat-form" class="composer"><div class="mode-row" role="group" aria-label="问答模式"><button type="button" class="mode active" data-mode="auto">✧ 自动识别</button><button type="button" class="mode" data-mode="rag">岗位知识</button><button type="button" class="mode" data-mode="sql">数据查询</button></div><div class="input-row"><textarea id="question" rows="2" maxlength="2000" placeholder="例如：北京 Python 岗平均薪资是多少？" aria-label="输入就业问题" required></textarea><button type="submit" id="send" aria-label="发送问题">↑</button></div><div class="composer-footer"><span id="mode-hint">自动选择岗位检索或数据库查询</span><span>Enter 发送 · Shift + Enter 换行</span></div></form>
+          <div class="disclaimer" id="data-note">分析基于已收录的招聘样本，请结合实际情况判断。</div>
+        </div>
+        <aside class="insights"><div class="insight-header"><h2>市场一瞥</h2><span>DATA SNAPSHOT</span></div><div class="insight-section"><h3>机会集中在哪里<span>热门城市</span></h3><div id="city-chart" class="bar-chart"><p class="muted">读取数据中…</p></div></div><div class="insight-section"><h3>正在招聘的方向<span>岗位类别</span></h3><div id="category-list" class="category-list"></div></div><div class="tip"><span>✳</span><h3>把问题问得更具体</h3><p>加上城市、岗位或技术关键词，更容易找到与你相关的答案。</p></div><div class="retrieval-note"><span class="dot"></span><span id="retrieval-label">FAISS + BM25 · Top 5</span></div></aside>
+      </section>
+      <footer class="page-footer"><span>职向 · 用数据看见职业的更多可能</span><span>FASTAPI / RAG / SQL AGENT</span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
